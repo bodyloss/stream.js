@@ -1,5 +1,5 @@
 var Benchmark = require('benchmark');
-var xs = require('../index').default;
+var xs = require('xstream').default;
 var most = require('most');
 var rx = require('rx');
 var rxjs = require('@reactivex/rxjs');
@@ -7,6 +7,7 @@ var kefir = require('kefir');
 var bacon = require('baconjs');
 var lodash = require('lodash');
 var highland = require('highland');
+var streamjs = require('../lib/Observable');
 
 var runners = require('./runners');
 var kefirFromArray = runners.kefirFromArray;
@@ -28,6 +29,9 @@ var options = {
 };
 
 suite
+  .add('streamjs', function(deferred) {
+    runners.runStreamJS(deferred, streamjs.Observable.from(a).scan(sum, 0).reduce(passthrough, 0));
+  }, options)
   .add('xstream', function(deferred) {
     runners.runXStream(deferred, xs.fromArray(a).fold(sum, 0).fold(passthrough, 0).last());
   }, options)

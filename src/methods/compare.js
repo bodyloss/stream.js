@@ -16,22 +16,22 @@ export function compare(observable, compareValue, customComparer) {
   const comparisonFunc = customComparer || defaultComparer;
 
   return new InternalObservable((observer) => {
-    let currentMaxValue, currentMaxIndex;
+    let currentValue, currentIndex;
 
-    const maxObserver = {
+    const compareObserver = {
       next: (x, idx) => {
-        if (currentMaxValue === undefined|| comparisonFunc(x, currentMaxValue) === compareValue) {
-          currentMaxValue = x;
-          currentMaxIndex = idx;
+        if (currentValue === undefined|| comparisonFunc(x, currentValue) === compareValue) {
+          currentValue = x;
+          currentIndex = idx;
         }
       },
       error: (err) => observer.error(err),
       completed: () => {
-        observer.next(currentMaxValue, currentMaxIndex);
+        observer.next(currentValue, currentIndex);
         observer.completed();
       }
     };
-    return observable.subscribe(maxObserver);
+    return observable.subscribe(compareObserver);
   });
 }
 

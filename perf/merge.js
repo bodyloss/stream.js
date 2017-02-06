@@ -7,7 +7,6 @@ var kefir = require('kefir');
 var bacon = require('baconjs');
 var lodash = require('lodash');
 var highland = require('highland');
-var stream = require('../src/Observable').Observable;
 
 var runners = require('./runners');
 var kefirFromArray = runners.kefirFromArray;
@@ -44,11 +43,6 @@ var options = {
 };
 
 suite
-  .add('stream', function(deferred) {
-    var streams = a.map(xs.fromArray);
-    runners.runStream(deferred,
-      stream.merge.apply(void 0, streams).fold(sum, 0).last());
-  }, options)
   .add('xstream', function(deferred) {
     var streams = a.map(xs.fromArray);
     runners.runXStream(deferred,

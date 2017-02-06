@@ -1,6 +1,7 @@
 import {RangeObservable} from './RangeObservable';
 import {InternalObservable} from './InternalObservable';
 import {FromObservable} from './FromObservable';
+import {CombineObservable} from "./CombineObservable";
 
 export class Observable {
 
@@ -24,7 +25,7 @@ export class Observable {
     return new FromObservable([value]);
   }
 
-  static interval(frequency) {
-
+  static combine(...observables) {
+    return new CombineObservable(observables);
   }
 }

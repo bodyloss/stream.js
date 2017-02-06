@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
-    "test-watch": "mocha --compilers js:babel-core/register --watch"
+    "test-watch": "mocha --compilers js:babel-core/register --watch",
+    "predist": "rm -rf dist/ && mkdirp dist/ && npm run compile",
+    "dist": "browserify index.js --standalone xstream | node tools/strip-comments.js > dist/xstream.js",
+    "postdist": "uglifyjs dist/xstream.js -o dist/xstream.min.js",
+    "compile": "babel src --out-dir lib"
   },
   "repository": {
     "type": "git",
@@ -18,8 +22,10 @@
   },
   "homepage": "https://github.com/bodyloss/stream.js#readme",
   "devDependencies": {
+    "babel-cli": "^6.22.2",
     "babel-core": "^6.22.1",
     "babel-preset-es2015": "^6.22.0",
+    "browserify": "^14.0.0",
     "chai": "^3.5.0",
     "mocha": "^3.2.0"
   }

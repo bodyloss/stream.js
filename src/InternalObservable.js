@@ -5,6 +5,8 @@ import {compare} from './methods/compare';
 import {concat} from './methods/concat';
 import {peek} from './methods/peek';
 import {reduce} from "./methods/reduce";
+import {scan} from "./methods/scan";
+import {filter} from "./methods/filter";
 
 
 export class InternalObservable {
@@ -39,6 +41,14 @@ export class InternalObservable {
 
   reduce(accumulator, seed) {
     return reduce(this, accumulator, seed);
+  }
+
+  scan(accumulator, seed) {
+    return scan(this, accumulator, seed);
+  }
+
+  filter(predicate) {
+    return filter(this, predicate);
   }
 
   subscribe(observer) {

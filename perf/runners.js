@@ -11,6 +11,7 @@ exports.runKefir       = runKefir;
 exports.kefirFromArray = kefirFromArray;
 exports.runBacon       = runBacon;
 exports.runHighland    = runHighland;
+exports.runStreamJS    = runStreamJS;
 
 exports.getIntArg      = getIntArg;
 exports.getIntArg2     = getIntArg2;
@@ -81,6 +82,20 @@ function runRx(deferred, rxStream) {
       deferred.resolve();
     },
     onError: function(e) {
+      deferred.benchmark.emit({ type: 'error', error: e });
+      deferred.resolve(e);
+    }
+  });
+}
+
+function runStreamJS(deferred, streamJs) {
+  streamJs.subscribe({
+    next: noop,
+    completed: function() {
+      deferred.resolve();
+    },
+    error: function(e) {
+      console.error(e);
       deferred.benchmark.emit({ type: 'error', error: e });
       deferred.resolve(e);
     }

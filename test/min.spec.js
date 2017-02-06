@@ -62,7 +62,7 @@ describe('#min', () => {
     expect(isCompleted).to.be.true;
   });
 
-  it('should return the minium value of those passed using a custom compare', () => {
+  it('should return the minimum value of those passed using a custom compare', () => {
 
     let source = Observable.from(['aa', 'a', 'aaa', 'a'])
       .min((x, y) => {
