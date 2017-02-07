@@ -4,6 +4,7 @@ kefir.DEPRECATION_WARNINGS = false;
 exports.runSuite       = runSuite;
 
 exports.runMost        = runMost;
+exports.runMostStream  = runMostStream;
 exports.runRx          = runRx;
 exports.runRx5         = runRx5;
 exports.runXStream     = runXStream;
@@ -72,6 +73,20 @@ function runMost(deferred, mostPromise) {
   }, function(e) {
     deferred.benchmark.emit({ type: 'error', error: e });
     deferred.resolve(e);
+  });
+}
+
+function runMostStream(deferred, mostStream) {
+  mostStream.subscribe({
+    next: noop,
+    complete: function() {
+      deferred.resolve();
+    },
+    error: function(e) {
+      console.error(e);
+      deferred.benchmark.emit({ type: 'error', error: e });
+      deferred.resolve(e);
+    }
   });
 }
 

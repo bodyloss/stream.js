@@ -1,5 +1,3 @@
-import {InternalObservable} from '../InternalObservable';
-
 const defaultComparer = (x, y) => {
   if (x > y) {
     return 1;
@@ -12,10 +10,10 @@ const defaultComparer = (x, y) => {
 /*
   compareValue: 1 or -1, decides the ordering to use
  */
-export function compare(observable, compareValue, customComparer) {
+module.exports = function compare(observable, compareValue, customComparer) {
   const comparisonFunc = customComparer || defaultComparer;
 
-  return new InternalObservable((observer) => {
+  return (observer) => {
     let currentValue, currentIndex;
 
     const compareObserver = {
@@ -32,6 +30,6 @@ export function compare(observable, compareValue, customComparer) {
       }
     };
     return observable.subscribe(compareObserver);
-  });
+  };
 }
 

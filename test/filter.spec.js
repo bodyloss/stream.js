@@ -1,5 +1,5 @@
-import {Observable} from "../src/Observable";
-import {expect} from "chai";
+const Observable = require("../src/Observable").Observable;
+const expect = require("chai").expect;
 
 describe('#filter', () => {
   it('should only return values that pass the predicate', () => {

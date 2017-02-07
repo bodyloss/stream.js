@@ -1,9 +1,7 @@
-import {InternalObservable} from '../InternalObservable';
-
-export function first(observable, predicate) {
+module.exports = function first(observable, predicate) {
   const predicateToUse = predicate || (() => true);
 
-  return new InternalObservable((observer) => {
+  return (observer) => {
     const firstObserver = {
       next: (x, idx) => {
         if (predicateToUse(x, idx)) {
@@ -15,5 +13,5 @@ export function first(observable, predicate) {
       completed: () => observer.completed()
     };
     return observable.subscribe(firstObserver);
-  });
+  };
 }

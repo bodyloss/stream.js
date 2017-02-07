@@ -1,7 +1,6 @@
-import {InternalObservable} from '../InternalObservable';
 
-export function filter(observable, predicate) {
-  return new InternalObservable((observer) => {
+module.exports = function filter(observable, predicate) {
+  return (observer) => {
     const filterObserver = {
       next: (x, idx) => {
         if (predicate(x, idx)) observer.next(x, idx)
@@ -10,5 +9,5 @@ export function filter(observable, predicate) {
       completed: () => observer.completed()
     };
     return observable.subscribe(filterObserver);
-  });
+  };
 }

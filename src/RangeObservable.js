@@ -1,6 +1,6 @@
-import {InternalObservable} from './InternalObservable';
+const InternalObservable = require('./InternalObservable');
 
-export class RangeObservable extends InternalObservable {
+class RangeObservable extends InternalObservable {
 
   constructor(start, end) {
     const datasource = (observer) => {
@@ -13,3 +13,5 @@ export class RangeObservable extends InternalObservable {
     super(datasource);
   }
 }
+
+module.exports = RangeObservable;
