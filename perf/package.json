@@ -7,6 +7,7 @@
   "scripts": {
     "filter-map-fusion": "node ./filter-map-fusion",
     "filter-map-reduce": "node ./filter-map-reduce",
+    "profile-filter-map-reduce": "0x node filter-map-reduce-for-profiling.js",
     "flattenConcurrently": "node ./flattenConcurrently",
     "merge": "node ./merge",
     "combine": "node ./combine",
@@ -27,6 +28,7 @@
     "xstream": "^10.1.0"
   },
   "devDependencies": {
+    "0x": "^2.4.0",
     "npm-run-all": "^3.1.2"
   }
 }

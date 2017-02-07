@@ -1,7 +1,5 @@
-import {InternalObservable} from '../InternalObservable';
-
-export function peek(observable, peekFunction) {
-  return new InternalObservable((observer) => {
+module.exports = function peek(observable, peekFunction) {
+  return (observer) => {
     const peekObserver = {
       next: (x, idx) => {
         peekFunction(x, idx);
@@ -12,5 +10,5 @@ export function peek(observable, peekFunction) {
     };
 
     return observable.subscribe(peekObserver);
-  });
+  };
 }

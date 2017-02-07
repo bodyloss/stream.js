@@ -1,5 +1,5 @@
 
-export class SafeObserver {
+class SafeObserver {
 
   constructor(destination) {
     this.destination = destination;
@@ -32,3 +32,5 @@ export class SafeObserver {
     }
   }
 }
+
+module.exports = SafeObserver;

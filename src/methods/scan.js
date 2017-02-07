@@ -1,12 +1,9 @@
-import {InternalObservable} from '../InternalObservable';
-
-
 /*
   compareValue: 1 or -1, decides the ordering to use
  */
-export function scan(observable, accumulator, seed) {
+module.exports = function scan(observable, accumulator, seed) {
 
-  return new InternalObservable((observer) => {
+  return (observer) => {
     let accumulatedValue = seed || null;
 
     const scanObserver = {
@@ -19,6 +16,6 @@ export function scan(observable, accumulator, seed) {
     };
 
     return observable.subscribe(scanObserver);
-  });
+  };
 }
 

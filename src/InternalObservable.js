@@ -1,54 +1,55 @@
-import {SafeObserver} from './SafeObserver';
-import {map} from './methods/map';
-import {first} from './methods/first';
-import {compare} from './methods/compare';
-import {concat} from './methods/concat';
-import {peek} from './methods/peek';
-import {reduce} from "./methods/reduce";
-import {scan} from "./methods/scan";
-import {filter} from "./methods/filter";
+const SafeObserver = require('./SafeObserver');
+
+const map = require('./methods/map');
+const first = require('./methods/first');
+const compare = require('./methods/compare');
+const concat = require('./methods/concat');
+const peek = require('./methods/peek');
+const reduce = require("./methods/reduce");
+const scan = require("./methods/scan");
+const filter = require("./methods/filter");
 
 
-export class InternalObservable {
+class InternalObservable {
 
   constructor(_subscribe) {
     this._subscribe = _subscribe;
   }
 
   map(project) {
-    return map(this, project);
+    return new InternalObservable(map(this, project));
   }
 
   first(predicate) {
-    return first(this, predicate);
+    return new InternalObservable(first(this, predicate));
   }
 
   max(customComparer) {
-    return compare(this, 1, customComparer);
+    return new InternalObservable(compare(this, 1, customComparer));
   }
 
   min(customComparer) {
-    return compare(this, -1, customComparer);
+    return new InternalObservable(compare(this, -1, customComparer));
   }
 
   concat(...observables) {
-    return concat(this, observables);
+    return new InternalObservable(concat(this, observables));
   }
 
   peek(peeker) {
-    return peek(this, peeker);
+    return new InternalObservable(peek(this, peeker));
   }
 
   reduce(accumulator, seed) {
-    return reduce(this, accumulator, seed);
+    return new InternalObservable(reduce(this, accumulator, seed));
   }
 
   scan(accumulator, seed) {
-    return scan(this, accumulator, seed);
+    return new InternalObservable(scan(this, accumulator, seed));
   }
 
   filter(predicate) {
-    return filter(this, predicate);
+    return new InternalObservable(filter(this, predicate));
   }
 
   subscribe(observer) {
@@ -59,3 +60,5 @@ export class InternalObservable {
     };
   }
 }
+
+module.exports = InternalObservable;

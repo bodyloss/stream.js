@@ -1,4 +1,7 @@
 /lib
+/perf/*.log
+/perf/profile-*
+/dist
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template

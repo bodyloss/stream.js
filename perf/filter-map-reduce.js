@@ -7,7 +7,7 @@ var kefir = require('kefir');
 var bacon = require('baconjs');
 var lodash = require('lodash');
 var highland = require('highland');
-var streamjs = require('../lib/Observable');
+var streamjs = require('../src/Observable');
 
 var runners = require('./runners');
 var kefirFromArray = runners.kefirFromArray;
@@ -22,18 +22,29 @@ for(var i = 0; i< a.length; ++i) {
 
 var suite = Benchmark.Suite('filter -> map -> reduce ' + n + ' integers');
 var options = {
-  defer: true,
+  defer: false,
   onError: function(e) {
     e.currentTarget.failure = e.error;
   }
 };
 
+
+// suite
+//   .add('streamjs', function(deferred) {
+//     runners.runStreamJS(deferred, streamjs.Observable.from(a).filter(even).map(add1));
+//   }, options)
+//   .add('most', function(deferred) {
+//     runners.runMostStream(deferred, most.from(a).filter(even).map(add1));
+//   }, options);
+
+
+
 suite
   .add('streamjs', function(deferred) {
-    runners.runStreamJS(deferred, streamjs.Observable.from(a).filter(even).map(add1).reduce(sum, 0));
+    runners.runStreamJS(deferred, streamjs.Observable.from(a));
   }, options)
   .add('most', function(deferred) {
-    runners.runMost(deferred, most.from(a).filter(even).map(add1).reduce(sum, 0));
+    runners.runMostStream(deferred, most.from(a));
   }, options);
 
 // suite

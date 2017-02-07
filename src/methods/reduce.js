@@ -1,8 +1,6 @@
-import {InternalObservable} from '../InternalObservable';
+module.exports = function reduce(observable, accumulator, seed) {
 
-export function reduce(observable, accumulator, seed) {
-
-  return new InternalObservable((observer) => {
+  return (observer) => {
     let accumulatedValue = seed || null;
 
     const maxObserver = {
@@ -16,6 +14,6 @@ export function reduce(observable, accumulator, seed) {
       }
     };
     return observable.subscribe(maxObserver);
-  });
+  };
 }
 

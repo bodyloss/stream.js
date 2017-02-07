@@ -1,9 +1,8 @@
-import {RangeObservable} from './RangeObservable';
-import {InternalObservable} from './InternalObservable';
-import {FromObservable} from './FromObservable';
-import {CombineObservable} from "./CombineObservable";
+const RangeObservable = require('./RangeObservable');
+const InternalObservable = require('./InternalObservable');
+const FromObservable = require('./FromObservable');
 
-export class Observable {
+class Observable {
 
   static create(dataSource) {
     return new InternalObservable(dataSource);
@@ -29,3 +28,5 @@ export class Observable {
     return new CombineObservable(observables);
   }
 }
+
+module.exports.Observable = Observable;
